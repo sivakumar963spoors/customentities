@@ -22,13 +22,15 @@ public class SecurityConfig {
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers(
                     new AntPathRequestMatcher("/v17/api/custom/entities/sync/**"),
-                    new AntPathRequestMatcher("/v17/api/sync/**") 
+                    new AntPathRequestMatcher("/v17/api/sync/**"),
+                    new AntPathRequestMatcher("/v21/api/formSubmission/sync/**")
                 )
             )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     new AntPathRequestMatcher("/v17/api/custom/entities/sync/**"),
                     new AntPathRequestMatcher("/v17/api/sync/**"),
+                    new AntPathRequestMatcher("/v21/api/formSubmission/sync/**"),
                     new AntPathRequestMatcher("/h2-console/**")
                 ).permitAll()
                 .anyRequest().authenticated()

@@ -5,7 +5,7 @@ package com.effort.entity;
 
 import java.io.IOException;
 import java.io.Serializable;
-
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -325,7 +325,9 @@ public class Employee implements Serializable{
 		private int employeeLeaveCount;
 		private int employeeDayPlanCount;
 		private boolean webUserActive;
-		
+		@JsonProperty(access = Access.READ_ONLY)
+		private Timestamp createTime;
+		private Timestamp modifyTime;
 		
 		public Integer getSourceOfAction() {
 			return sourceOfAction;
@@ -1650,5 +1652,12 @@ public class Employee implements Serializable{
 		this.webUserActive = webUserActive;
 	}
 	
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
+	@JsonIgnore
+	public void setModifyTime(Timestamp modifyTime) {
+		this.modifyTime = modifyTime;
+	}
 	
 }

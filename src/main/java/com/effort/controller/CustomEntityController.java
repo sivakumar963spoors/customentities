@@ -135,16 +135,17 @@ public class CustomEntityController {
 					addedOrModifiedCustomEntities,customEntityNewKeys,customEntityClientKeys,customEntityOldClientKeys,null,apiLevel,null,ipAddress);
 		
 			Map<String, Object> formsPayload = new HashMap<>();
-			formsPayload.put("formDataContainer", formSubmissionData.getFormDataContainer());
-
-
+			formsPayload.put("forms", formSubmissionData.getFormDataContainer());
+			ObjectMapper objectMapper = new ObjectMapper();
+			String requestJson = objectMapper.writeValueAsString(formsPayload);
+			System.out.println("Request JSON: " + Api.toJson(requestJson));
 			String jsonResponse = formSubmissionManager.fetchSyncedForms(
 			    empId, code, clientVersion, Integer.parseInt(apiLevel), syncRequestId, syncTime, signature, formsPayload
 			);
 
 			FormHistoryForForm formHistoryForForm = mapper.readValue(jsonResponse, FormHistoryForForm.class);
-			String syncResponseStr = Api.toJson(formHistoryForForm);
-
+			String syncResponseStr = objectMapper.writeValueAsString(formHistoryForForm);
+			System.out.println("Parsed Response JSON: " + syncResponseStr);
 			
 		
 			if(clientFormIdExistsForCustomEntity) {
