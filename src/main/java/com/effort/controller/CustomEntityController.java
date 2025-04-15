@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.effort.beans.http.response.extra.CustomEntityData;
+import com.effort.beans.http.response.extra.CustomEntityRequestDataContainer;
 import com.effort.beans.http.response.extra.FormSubmissionData;
 import com.effort.context.AppContext;
 import com.effort.entity.Employee;
@@ -136,6 +137,7 @@ public class CustomEntityController {
 		
 			Map<String, Object> formsPayload = new HashMap<>();
 			formsPayload.put("forms", formSubmissionData.getFormDataContainer());
+			formsPayload.put("addedOrModifiedCustomEntities", addedOrModifiedCustomEntities); 
 			ObjectMapper objectMapper = new ObjectMapper();
 			String requestJson = objectMapper.writeValueAsString(formsPayload);
 			System.out.println("Request JSON: " + Api.toJson(requestJson));
